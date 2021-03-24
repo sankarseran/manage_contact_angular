@@ -55,7 +55,7 @@ export class AddressesComponent implements OnInit {
       this.contactAddresses = res;
       if (this.contactAddresses && this.contactAddresses?.length) {
         this.contactAddresses.forEach((address: any, idx: any) => {
-          console.log(address);
+          // console.log(address);
           this.addAddress(address);
           if (this.contactAddresses.length - 1 == idx) {
             this.addAddress(null);
@@ -114,7 +114,7 @@ export class AddressesComponent implements OnInit {
     if (this.addressForm.valid) {
       this.contactsService.getAddressCount().then((res) => {
         let currentCount = res;
-        console.log(this.addressForm.value.addresses);
+        // console.log(this.addressForm.value.addresses);
         const request: any[] = [];
         this.addressForm.value.addresses.forEach((address: any, idx: any) => {
           if (!address?.id) {
@@ -122,9 +122,7 @@ export class AddressesComponent implements OnInit {
             currentCount += 1
           }
           request.push(address);
-          if ((this.addressForm.value.addresses.length - 1) == idx) {
-            this.updateAddress(address);
-          }
+          this.updateAddress(address);
         });
       });
     }
@@ -132,7 +130,7 @@ export class AddressesComponent implements OnInit {
 
   updateAddress(address: any) {
     this.contactsService.updateAddress(address).then((res) => {
-      console.log('update response:', res);
+      console.log('success fully added or updated', res);
     });
   }
 }

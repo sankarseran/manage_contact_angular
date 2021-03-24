@@ -25,7 +25,7 @@ export class ContactsComponent implements OnInit {
     this.contactsService.getContacts().then((res) => {
       this.loading = false;
       this.contacts = res;
-      console.log(res)
+      // console.log(res)
     }).catch((err) => {console.log(err); this.loading = false;})
   }
 
@@ -39,7 +39,7 @@ export class ContactsComponent implements OnInit {
         avatar: this.avatarUrl
       }
       this.contactsService.creatContacts(contact).then((res) => {
-        console.log('contacts created', res);
+        // console.log('contacts created', res);
         this.getContacts();
         this.newContact = undefined;
       }).catch((err) => {console.log(err); this.loading = false;})
@@ -47,7 +47,7 @@ export class ContactsComponent implements OnInit {
   }
 
   openContact(contact: any) {
-    console.log(contact);
+    // console.log(contact);
     this.router.navigate(['contacts/addresses/' + contact?.id]);
   }
 

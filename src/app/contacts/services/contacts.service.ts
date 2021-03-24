@@ -31,9 +31,17 @@ export class ContactsService {
   }
 
   updateAddress(address: any) {
-    const path = 'contacts/'
-    const path1 = '/addresses'
-    return this.http.post(this.url + path + address.id + path1, address).toPromise();
+    const path = 'addresses/'
+    return this.http.get(this.url + path).toPromise().then((res: any) => {
+      // console.log('res', res);
+      if (res?.length && res.find((val: any) => val.id == address.id)){
+        return (this.http.put(this.url + path + address.id, address).toPromise());
+      } else {
+        return (this.http.post(this.url + path, address).toPromise());
+      }
+    }).catch((err) => {
+      console.log(err);
+    }); 
   }
 
   creatContacts(contacts: any) {
