@@ -1,15 +1,112 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+
+import { ContactsService } from '../services/contacts.service';
 
 @Component({
   selector: 'app-addresses',
   templateUrl: './addresses.component.html',
-  styleUrls: ['./addresses.component.scss']
+  styleUrls: ['./addresses.component.scss'],
 })
 export class AddressesComponent implements OnInit {
+  contactId!: string;
+  countries: any;
+  selectedContact: any;
+  addressForm: FormGroup;
+  contactAddresses: any;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  get addresses(): FormArray {
+    return this.addressForm.get('addresses') as FormArray;
+  }
+  constructor(
+    private route: ActivatedRoute,
+    private contactsService: ContactsService,
+    private fb: FormBuilder
+  ) {
+    this.addressForm = this.fb.group({
+      addresses: this.fb.array([]),
+    });
   }
 
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.contactId = params['id'];
+      this.getContact(params['id']);
+      this.getAddresses();
+    });
+
+    const countries = localStorage.getItem('countries');
+    if (countries) {
+      this.countries = JSON.parse(countries);
+    } else {
+      this.getCountries();
+    }
+  }
+
+  getAddresses() {
+    this.contactsService.getAddress(this.contactId).then((res: any) => {
+      this.contactAddresses = res;
+      if (this.contactAddresses && this.contactAddresses?.length) {
+        this.contactAddresses.forEach((address: any, idx: any) => {
+          console.log(address);
+          this.addAddress(address);
+          if (this.contactAddresses.length - 1 == idx) {
+            this.addAddress(null);
+          }
+        });
+      } else {
+        this.addAddress(null);
+      }
+    });
+  }
+
+  getContact(id: string) {
+    this.contactsService.getContact(id).then((res: any) => {
+      this.selectedContact = res[0];
+    });
+  }
+
+  getCountries() {
+    this.contactsService.getCountries().then((res) => {
+      this.countries = res;
+      localStorage.setItem('countries', JSON.stringify(this.countries));
+    });
+  }
+
+  newAddress(value: any): FormGroup {
+    if (value) {
+      return this.fb.group({
+        street1: value.street1,
+        street2: value.street2,
+        town: value.town,
+        country: value.country,
+        id: value.id,
+        contactId: value.contactId,
+      });
+    } else {
+      return this.fb.group({
+        street1: '',
+        street2: '',
+        town: '',
+        country: '',
+        id: '',
+        contactId: this.contactId,
+      });
+    }
+  }
+
+  addAddress(value: any) {
+    this.addresses.push(this.newAddress(value));
+  }
+
+  removeSkill(i:number) {
+    this.addresses.removeAt(i);
+  }
 }

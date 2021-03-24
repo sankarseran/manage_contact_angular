@@ -1,0 +1,24 @@
+.address-container {
+    .contact-details {
+        padding: 10px 20px;
+        align-items: center;
+        display: flex;
+        justify-content: flex-start;
+        img {
+            width: 65px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        span {
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+    .form-group-array {
+        display: flex;
+        justify-content: flex-start;
+        padding: 10px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ContactsService } from '../services/contacts.service';
 
 @Component({
@@ -9,10 +10,11 @@ import { ContactsService } from '../services/contacts.service';
 export class ContactsComponent implements OnInit {
   contacts: any;
   newContact: string | undefined;
-  avatarUrl = 'https://avatars.dicebear.com/v2/male/4df634a5c39dc93d1fce4f1712c04c1a.svg'
+  avatarUrl = 'https://avatars.dicebear.com/v2/identicon/1c8e8a6e8d1fe52b782b280909abeb38.svg'
   loading: boolean | undefined;
 
-  constructor(private contactsService: ContactsService) { }
+  constructor(private contactsService: ContactsService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getContacts();
@@ -42,6 +44,11 @@ export class ContactsComponent implements OnInit {
         this.newContact = undefined;
       }).catch((err) => {console.log(err); this.loading = false;})
     }
+  }
+
+  openContact(contact: any) {
+    console.log(contact);
+    this.router.navigate(['contacts/addresses/' + contact?.id]);
   }
 
 }

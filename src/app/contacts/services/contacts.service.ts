@@ -13,8 +13,30 @@ export class ContactsService {
     return this.http.get(this.url + path).toPromise();
   }
 
+  getContact(id: string) {
+    const path = 'contacts'
+    return this.http.get(this.url + path + '/?id=' + id).toPromise();
+  }
+
+  getAddress(contactId: string) {
+    const path = 'addresses'
+    return this.http.get(this.url + path + '/?contactId=' + contactId).toPromise();
+  }
+
+  getAddressCount(contactId: string) {
+    const path = 'addresses'
+    return this.http.get(this.url + path).toPromise().then((res: any) => {
+      return res?.length ? res?.length : 0;
+    });
+  }
+
   creatContacts(contacts: any) {
     const path = 'contacts'
     return this.http.post(this.url + path, contacts).toPromise();
+  }
+
+  getCountries() {
+    const path = 'countries'
+    return this.http.get(this.url + path).toPromise();
   }
 }

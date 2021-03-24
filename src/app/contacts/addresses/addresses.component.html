@@ -1,1 +1,38 @@
-<p>addresses works!</p>
+<div class="address-container">
+    <div *ngIf="selectedContact" class="contact-details">
+        <img src="{{selectedContact?.avatar}}" alt="">
+        <span>{{selectedContact?.name ? selectedContact?.name : selectedContact?.first_name + ' ' +
+            selectedContact?.last_name}}</span>
+    </div>
+    <div class="form-continer">
+        <form [formGroup]="addressForm">
+            <div formArrayName="addresses" *ngFor="let address of addresses.controls; let idx = index;">
+                <p style="padding: 0px 20px;">Address #{{idx + 1}} <span style="margin-left: 40px;cursor: pointer;" (click)="removeSkill(idx)">X</span></p>
+                <div  [formGroupName]="idx" class="form-group-array">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Street1</mat-label>
+                        <input matInput placeholder="Street1" formControlName="street1" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Street2</mat-label>
+                        <input matInput placeholder="Street2" formControlName="street2" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Town</mat-label>
+                        <input matInput placeholder="town" formControlName="town" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="standard">
+                        <mat-select placeholder="Country" formControlName="country" required>
+                            <mat-option *ngFor="let country of countries" [value]="country.iso2">{{country.name}}</mat-option>
+                        </mat-select>
+                        <mat-label>Country</mat-label>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <button (click)="addAddress(null)" mat-button>Add Address</button>
+                <button type="submit" mat-button>Save</button>
+            </div>
+        </form>
+    </div>
+</div>

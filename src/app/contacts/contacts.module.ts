@@ -11,7 +11,7 @@ import { MaterialModule } from '../shared/material.module';
 
 const routes: Routes = [
   {path: '', component: ContactsComponent},
-  {path: 'addresses', component: AddressesComponent}
+  {path: 'addresses/:id', component: AddressesComponent}
 ];
 
 @NgModule({

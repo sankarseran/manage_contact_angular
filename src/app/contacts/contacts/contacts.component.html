@@ -4,7 +4,7 @@
         <p>You have 3 contacts</p>
     </div>
     <div class="contact-list-container">
-        <div class="contact-list" *ngFor="let contact of contacts">
+        <div (click)="openContact(contact)" class="contact-list" *ngFor="let contact of contacts">
             <img src="{{contact.avatar}}" alt="">
             <span>{{contact?.name ? contact?.name : contact.first_name + ' ' + contact.last_name}}</span>
         </div>
