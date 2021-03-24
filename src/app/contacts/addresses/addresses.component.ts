@@ -109,4 +109,30 @@ export class AddressesComponent implements OnInit {
   removeSkill(i:number) {
     this.addresses.removeAt(i);
   }
+
+  saveAddress() {
+    if (this.addressForm.valid) {
+      this.contactsService.getAddressCount().then((res) => {
+        let currentCount = res;
+        console.log(this.addressForm.value.addresses);
+        const request: any[] = [];
+        this.addressForm.value.addresses.forEach((address: any, idx: any) => {
+          if (!address?.id) {
+            address.id = currentCount + 1; 
+            currentCount += 1
+          }
+          request.push(address);
+          if ((this.addressForm.value.addresses.length - 1) == idx) {
+            this.updateAddress(address);
+          }
+        });
+      });
+    }
+  }
+
+  updateAddress(address: any) {
+    this.contactsService.updateAddress(address).then((res) => {
+      console.log('update response:', res);
+    });
+  }
 }

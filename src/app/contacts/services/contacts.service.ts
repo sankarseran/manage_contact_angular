@@ -23,11 +23,17 @@ export class ContactsService {
     return this.http.get(this.url + path + '/?contactId=' + contactId).toPromise();
   }
 
-  getAddressCount(contactId: string) {
+  getAddressCount() {
     const path = 'addresses'
     return this.http.get(this.url + path).toPromise().then((res: any) => {
       return res?.length ? res?.length : 0;
     });
+  }
+
+  updateAddress(address: any) {
+    const path = 'contacts/'
+    const path1 = '/addresses'
+    return this.http.post(this.url + path + address.id + path1, address).toPromise();
   }
 
   creatContacts(contacts: any) {
