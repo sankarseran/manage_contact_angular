@@ -1,0 +1,21 @@
+<mat-sidenav-container class="side-nav-container">
+    <mat-sidenav #sidenav [mode]="'over'">
+        <div class="list-item-container">
+            <div (click)="sidenav.toggle();navigate('')" class="list-item">
+                <span  class="material-icons">home</span>
+                <span class="side-nav-name">Home</span>
+            </div>
+            <div (click)="sidenav.toggle();navigate('contacts')" class="list-item">
+                <span class="material-icons">contacts</span>
+                <span class="side-nav-name">Contacts</span>
+            </div>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <nav _ngcontent-gtd-c44="" aria-label="Top Toolbar" class="docs-navbar-header">
+            <span (click)="sidenav.toggle()" class="material-icons">menu</span>
+        </nav>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
