@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ContactsComponent } from './contacts/contacts.component';
 import { AddressesComponent } from './addresses/addresses.component';
+import { ContactsService } from './services/contacts.service';
+import { MaterialModule } from '../shared/material.module';
 
 const routes: Routes = [
   {path: '', component: ContactsComponent},
@@ -19,7 +21,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    MaterialModule
+  ],
+  providers: [ContactsService]
 })
 export class ContactsModule { }

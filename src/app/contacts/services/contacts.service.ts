@@ -12,4 +12,9 @@ export class ContactsService {
     const path = 'contacts'
     return this.http.get(this.url + path).toPromise();
   }
+
+  creatContacts(contacts: any) {
+    const path = 'contacts'
+    return this.http.post(this.url + path, contacts).toPromise();
+  }
 }

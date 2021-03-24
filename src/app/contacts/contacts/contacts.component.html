@@ -1,6 +1,23 @@
 <div>
-    <div>
+    <div style="padding: 20px;">
         <h3>Contact List</h3>
         <p>You have 3 contacts</p>
+    </div>
+    <div class="contact-list-container">
+        <div class="contact-list" *ngFor="let contact of contacts">
+            <img src="{{contact.avatar}}" alt="">
+            <span>{{contact?.name ? contact?.name : contact.first_name + ' ' + contact.last_name}}</span>
+        </div>
+    </div>
+    <div class="new-contact">
+        <mat-form-field adivpearance="legacy">
+          <mat-label>New Contact</mat-label>
+          <input matInput placeholder="Placeholder" [(ngModel)]="newContact" required>
+        </mat-form-field>
+        <button [disabled]="loading" (click)="addContact()" mat-icon-button>
+            <span class="material-icons">
+                add_circle_outline
+            </span>
+        </button>
     </div>
 </div>

@@ -1,0 +1,15 @@
+.contact-list {
+    padding: 5px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    img {
+        width: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+}
+.new-contact {
+    padding: 20px 20px;
+}
